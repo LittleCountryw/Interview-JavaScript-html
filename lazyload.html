@@ -1,0 +1,143 @@
+<head>
+  <style>
+    .img {
+      width: 200px;
+      height: 200px;
+      background-color: gray;
+      margin-bottom: 20px;
+    }
+
+    .pic {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="img">
+      <!-- 注意我们并没有为它引入真实的src -->
+      <img
+        class="pic"
+        alt="加载中"
+        data-src="https://tse1-mm.cn.bing.net/th/id/OIP.8OrEFn_rKe82kqAWFjTuMwHaEo?pid=Api&rs=1"
+      />
+    </div>
+    <div class="img">
+      <img
+        class="pic"
+        alt="加载中"
+        data-src="https://ssl.tzoo-img.com/images/tzoo.94911.0.910013.seoul-nami.jpg?width=1080"
+      />
+    </div>
+    <div class="img">
+      <img
+        class="pic"
+        alt="加载中"
+        data-src="https://tse4-mm.cn.bing.net/th/id/OIP.ZitgAuABnwkrGn4lid2ZmQHaEK?pid=Api&rs=1"
+      />
+    </div>
+    <div class="img">
+      <img
+        class="pic"
+        alt="加载中"
+        data-src="http://pic34.photophoto.cn/20150315/0034034862056002_b.jpg"
+      />
+    </div>
+    <div class="img">
+      <img
+        class="pic"
+        alt="加载中"
+        data-src="http://img.mp.sohu.com/upload/20170724/32d4409f34194b029ed287abf1c99b70_th.png"
+      />
+    </div>
+    <div class="img">
+      <img
+        class="pic"
+        alt="加载中"
+        data-src="https://pic6.wed114.cn/20180829/2018082910075991913520.jpg"
+      />
+    </div>
+    <div class="img">
+      <img
+        class="pic"
+        alt="加载中"
+        data-src="https://tse4-mm.cn.bing.net/th/id/OIP.PZdPKj3sXEX2jLrepx3MUwHaEo?pid=Api&rs=1"
+      />
+    </div>
+    <div class="img">
+      <img
+        class="pic"
+        alt="加载中"
+        data-src="https://pic6.wed114.cn/20180829/2018082910075831439349.jpg"
+      />
+    </div>
+    <div class="img">
+      <img
+        class="pic"
+        alt="加载中"
+        data-src="https://pic6.wed114.cn/20180829/2018082910075468043336.jpg"
+      />
+    </div>
+    <div class="img">
+      <img
+        class="pic"
+        alt="加载中"
+        data-src="https://tse2-mm.cn.bing.net/th/id/OIP.CRYz5Bv4vylsMh83G4CsLgHaFj?pid=Api&rs=1"
+      />
+    </div>
+  </div>
+  <!-- <script>
+    // 原始实现懒加载的原理:当图片距离可视区域顶部的高度小于可视区域的高度时
+    // 将图片的src设为data-src
+    const imgs = document.getElementsByTagName('img')
+    // 获取当前可视区域高度
+    const viewHeight =
+      window.innerHeight || document.documentElement.clientHeight //兼容处理
+    let num = 0 //全局变量
+    function lazyload() {
+      console.log('scrolling')
+      for (let i = num; i < imgs.length; i++) {
+        let distance = viewHeight - imgs[i].getBoundingClientRect().top
+        if (distance >= 0) {
+          // 替换图片src
+          imgs[i].src = imgs[i].getAttribute('data-src')
+          num = i + 1
+        }
+      }
+    }
+    function throttle(fn, interval) {
+      let lastTime = 0
+      function _throttle() {
+        let nowTime = new Date().getTime()
+        let remainTime = interval - (nowTime - lastTime)
+        if (remainTime <= 0) {
+          fn()
+          lastTime = nowTime
+        }
+      }
+      return _throttle
+    }
+    window.onload = lazyload
+    window.onscroll = throttle(lazyload, 200)
+  </script> -->
+
+  <script>
+    // 使用intersectionObserver
+    // 它可以判断目标元素有没有和父级元素产生交叉行为
+    const imgs = document.getElementsByTagName('img')
+    const observer = new IntersectionObserver((entries) => {
+      // entires中是所有观察元素
+      entries.forEach((item) => {
+        if (item.isIntersecting) {
+          item.target.src = item.target.dataset.src
+          observer.unobserve(item.target)
+        }
+      })
+    })
+    for (const img of imgs) {
+      observer.observe(img)
+    }
+  </script>
+</body>
