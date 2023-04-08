@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>登录</title>
+    <link href="css/login.css" rel="stylesheet" type="text/css" />
+    <style type="text/css"></style>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+
+    <style>
+      .inputarea {
+        display: flex;
+        margin-bottom: 6px;
+      }
+      /*所有inputarea中的第一个元素*/
+      /* 直接子代组合器 ul > li 匹配直接嵌套在 <ul> 元素内的所有 <li> 元素。 */
+      .inputarea > :first-child {
+        margin-right: 8px;
+      }
+      #login {
+        margin-left: 108px;
+      }
+      #login input {
+        width: 158px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="inputarea">
+      <div>账号</div>
+      <div><input type="text" id="usntext" placeholder="请输入账号" /></div>
+    </div>
+    <div class="inputarea">
+      <div>密码</div>
+      <div><input type="password" id="pwdtext" placeholder="请输入密码" /></div>
+    </div>
+    <div id="error"></div>
+    <div id="login"><input type="button" value="登录" /></div>
+  </body>
+  <script>
+    $(document).ready(function () {
+      $('#login input').click(function () {
+        let error = $('#error')
+        let username = $('#usntext').val()
+        let userpwd = $('#pwdtext').val()
+        if (!username || !userpwd) {
+          error.append('账号、密码必须输入')
+          if (!username) {
+            $('#usntext').css('background-color', '#ff9999')
+          }
+          if (!userpwd) {
+            $('#pwdtext').css('background-color', '#ff9999')
+          }
+        }
+        $.ajax({
+          url: 'http://172.23.253.62:8345/exam/login/username/userpwd',
+          type: 'GET',
+          async: false,
+          success: function (data) {
+            if (data.code === 200) {
+              $(location).attr('href', './login.html')
+            } else {
+              alert('登录失败')
+            }
+          },
+        })
+      })
+    })
+  </script>
+</html>

@@ -19,8 +19,8 @@ function LCapply(thisArg, args = []) {
 function LCbind(thisArg, ...args) {
   const fn = this
   thisArg = thisArg !== null && thisArg !== undefined ? Object(thisArg) : window
-  thisArg.fn = fn
   return function (...args1) {
+    thisArg.fn = fn
     const res = thisArg.fn(...args.concat(args1))
     delete thisArg.fn
     return res

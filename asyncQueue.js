@@ -22,9 +22,31 @@ class Queue {
     }
   }
 }
-
+//做完任务1再做任务2..
 new Queue()
   .task(1000, () => console.log(1))
   .task(2000, () => console.log(2))
   .task(3000, () => console.log(3))
   .start()
+
+class Queue {
+  constructor() {
+    this.queue = []
+  }
+  task(delay, fn) {
+    this.queue.push(() => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          fn()
+          resolve()
+        }, delay)
+      })
+    })
+    return this
+  }
+  async start() {
+    for (const fn of this.queue) {
+      await fn()
+    }
+  }
+}

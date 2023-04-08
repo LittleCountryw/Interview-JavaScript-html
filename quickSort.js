@@ -1,22 +1,41 @@
-function quickSort(arr) {
-  // 基础思想，找到index位于中间的,遍历如果<则放在左边,如果>则放在右边
-  // 递归,使用concat联系左边 中间 右边
-  // 注意:1.使用splice取出中间值后数组长度改变
-  // 2.当len为0时返回[]
-  const len = arr.length
-  if (len === 0) return []
-  const middleIndex = Math.floor(len / 2)
-  const middleValue = arr.splice(middleIndex, 1)
-  const leftArr = []
-  const rightArr = []
-  for (let i = 0; i < arr.length; i++) {
-    const cur = arr[i]
-    if (cur < middleValue) {
-      leftArr.push(cur)
-    } else {
-      rightArr.push(cur)
-    }
-  }
-  return quickSort(leftArr).concat(middleValue, quickSort(rightArr))
+//快排+打乱数组
+function quickSort(nums) {
+  shuffle(nums)
+  sort(nums, 0, nums.length - 1)
+  return nums
 }
-console.log(quickSort([2, 5, 1, 9, 6, 10]))
+function sort(nums, left, right) {
+  if (left >= right) return //不用排
+  let p = partition(nums, left, right)
+  sort(nums, left, p - 1)
+  sort(nums, p + 1, right)
+}
+function partition(nums, left, right) {
+  let pivot = nums[right]
+  let i = left
+  let j = left
+  while (j < right) {
+    if (nums[j] < pivot) {
+      //遇见小的就换到前面 保证前面的都是小的
+      swap(nums, i, j)
+      i++
+    }
+    j++
+  }
+  swap(nums, i, right)
+  return i
+}
+function shuffle(nums) {
+  for (let i = 0; i < nums.length; i++) {
+    let random = randOne(i, nums.length - 1)
+    swap(nums, i, random)
+  }
+}
+function randOne(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+function swap(nums, m, n) {
+  let temp = nums[m]
+  nums[m] = nums[n]
+  nums[n] = temp
+}

@@ -1,5 +1,6 @@
 /*
  *reactive函数的封装，将创建代理对象的过程封装成一个函数
+ *weakMap->map->depend->set
  */
 // 保存当前需要收集的响应式函数
 let activeReactiveFn = null
@@ -41,7 +42,7 @@ function getDepend(target, key) {
   }
   return depend
 }
-
+//weakMap -> key obj value map -> key:attr,value:depend ->set
 function reactive(obj) {
   // 对象的响应式
   return new Proxy(obj, {

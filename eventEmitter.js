@@ -56,3 +56,6 @@ events.emit('hobby', 1, 2, 3)
 // events.emit('hello', 'susan')
 //打游戏 1 2 3
 // 逛街 1 2 3
+
+//new eventEmmiter() =>{eventName1:[]}
+//on emit off once

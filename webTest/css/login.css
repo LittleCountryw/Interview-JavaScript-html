@@ -1,0 +1,21 @@
+div{
+    font-size: 14px;
+}
+body{
+    margin: 0px !important;
+}
+.inputarea {
+    padding: 2px 0px 2px 0px;
+}
+.inputarea div:nth-child(1){
+    width: 100px;
+    text-align: right;
+    font-size:14px;
+}
+.inputarea div:nth-child(2) input {
+    width: 150px;
+}
+#error{
+    color: #ff0000;
+    margin: 0px 0px 0px 110px;
+}

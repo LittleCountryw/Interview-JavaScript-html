@@ -197,3 +197,24 @@ const p3 = new Promise((resolve, reject) => {
 LCPromise.any([p1, p2, p3])
   .then((res) => console.log('res:', res))
   .catch((err) => console.log('err:', err.errors))
+
+//1 定义三个状态
+//2 constructor中定义resolve reject 执行exec传入resolve和reject
+// new Promise((resolve,reject)=>{})
+//定义 resolve reject
+//(res)=>{加入微任务队列}  (err)=>{加入微任务队列} 如果状态已经锁定 return
+//变换状态 this.value = res this.reason = err 执行then中加入的函数
+
+//3 then函数 then(onFulfilledFn,onRejectedFn) 返回promise 且resolve值是fn的执行结果 所以实际上加入到 onFulfilledFns中的是箭头函数
+// this.onFulfilledFns.push(()=>{
+//  let res = onFulfilledFn(this.value)
+//  resolve(res)
+// })
+//同理onRejectedFn
+//考虑then函数在sto中的情况 此时状态已经变为fulfilled或rejected this.value和this.reason已被赋值 所以直接执行
+
+//默认参数 onFulfilledFn = onFulfilledFn ?? (value)=>return value
+//  onRejectedFn = onRejectedFn ?? (err)=>throw err
+
+//这是为了catch做准备 当先catch再then时 promise未报错 将value传到下一个then中
+//当先then后catch时 将错误交给下一个catch

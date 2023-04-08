@@ -3,7 +3,7 @@
 console.log([[1, 2, [3, 4], 5], 6].flat(Infinity))
 
 // 2.使用reduce 两个return
-let arr = [0, [1, 2, [3, 4], 5], 6]
+let arr = [0, [9, 10], [1, 2, [3, 4], 5], 6]
 function redFlat(arr) {
   // 返回最终结果
   return arr.reduce((pre, cur) => {
@@ -35,3 +35,4 @@ function myFlat2(arr, depth = 1) {
       }, [])
     : arr.slice()
 }
+console.log(myFlat2([5, [1, 3, 4]]))

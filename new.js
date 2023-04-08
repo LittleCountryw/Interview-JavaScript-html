@@ -9,3 +9,10 @@ function person(name, sno) {
   this.sno = sno
 }
 console.log(LCNew(person, 'kanae', '123'))
+
+//Object.create
+function create(obj) {
+  function fn1() {}
+  fn1.prototype = obj
+  return new fn1()
+}

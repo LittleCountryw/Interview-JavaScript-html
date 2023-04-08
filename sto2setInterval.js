@@ -16,3 +16,21 @@ mysetInterval(() => {
 }, 2000)
 
 clearTimeout(timer)
+
+function sto2sti(fn, delay) {
+  setTimeout(() => {
+    fn()
+    sto2sti(fn, delay)
+  }, delay)
+}
+
+function sto2si(fn, interval) {
+  function innerFn() {
+    fn()
+    timer = setTimeout(() => {
+      innerFn
+    }, interval)
+  }
+  let timer = setTimeout(innerFn, interval)
+  return timer
+}
